@@ -13,20 +13,27 @@ class FormDataState extends State<FormData> {
   final _namaController = TextEditingController();
   final _nimController = TextEditingController();
   final _tahunController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Input Data"),
+        backgroundColor: Colors.teal,
+        foregroundColor: Colors.white,
       ),
       body: Container(
-        margin: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _textboxNama(),
+            const SizedBox(height: 20),
             _textboxNIM(),
+            const SizedBox(height: 20),
             _textboxTahun(),
-            _tombolSimpan()
+            const SizedBox(height: 30),
+            _tombolSimpan(),
           ],
         ),
       ),
@@ -35,27 +42,54 @@ class FormDataState extends State<FormData> {
 
   _textboxNama() {
     return TextField(
-      decoration: const InputDecoration(labelText: "Nama"),
+      decoration: InputDecoration(
+        labelText: "Nama",
+        prefixIcon: const Icon(Icons.person),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        filled: true,
+        fillColor: Colors.grey[200],
+      ),
       controller: _namaController,
     );
   }
 
   _textboxNIM() {
     return TextField(
-      decoration: const InputDecoration(labelText: "NIM"),
+      decoration: InputDecoration(
+        labelText: "NIM",
+        prefixIcon: const Icon(Icons.badge),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        filled: true,
+        fillColor: Colors.grey[200],
+      ),
       controller: _nimController,
     );
   }
 
   _textboxTahun() {
     return TextField(
-      decoration: const InputDecoration(labelText: "Tahun Lahir"),
+      decoration: InputDecoration(
+        labelText: "Tahun Lahir",
+        prefixIcon: const Icon(Icons.calendar_today),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        filled: true,
+        fillColor: Colors.grey[200],
+      ),
       controller: _tahunController,
+      keyboardType: TextInputType.number,
     );
   }
 
   _tombolSimpan() {
-    return ElevatedButton(
+    return SizedBox(
+      width: double.infinity, // Membuat tombol selebar layar
+      child: ElevatedButton(
         onPressed: () {
           String nama = _namaController.text;
           String nim = _nimController.text;
@@ -64,6 +98,16 @@ class FormDataState extends State<FormData> {
               builder: (context) =>
                   TampilData(nama: nama, nim: nim, tahun: tahun)));
         },
-        child: const Text('Simpan'));
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.all(15),
+          backgroundColor: Colors.teal,
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        child: const Text('Simpan', style: TextStyle(fontSize: 18)),
+      ),
+    );
   }
 }
